@@ -2,7 +2,7 @@
 // write your code here
 let fs                        = require('fs');
 let countQ                    = 0;
-var falseCounter              = 0;
+var guessCounter              = 0;
 var question                  = Questions()
 const readline                = require('readline');
 
@@ -25,7 +25,7 @@ rl.setPrompt(`${question[countQ].definition}?\nJawaban :`)
 rl.prompt()
 
 rl.on('line', (answer) => {
-  if(question[countQ].status == false && (countQ + 1) < question.length){
+  if(question[countQ].status == false && countQ < question.length){
     //console.log(countQ, question.length, question[countQ].status)
 
     switch(answer.trim().toUpperCase()) {
@@ -33,6 +33,8 @@ rl.on('line', (answer) => {
         console.log('jawaban benar');
         question[countQ].status = true
         countQ++
+        guessCounter++
+        console.log(`sudah menebak ${guessCounter} kali`);
         break;
       case "SKIP":
         countQ++
@@ -41,11 +43,23 @@ rl.on('line', (answer) => {
         }
         break;
       default:
+        guessCounter++
         console.log(`jawaban salah`);
+        console.log(`sudah menebak ${guessCounter} kali`);
         break;
     }
-    rl.setPrompt(`${question[countQ].definition}?\nJawaban :`)
-    rl.prompt()
+
+    if(countQ < question.length || question.filter(function(questions){return question.status === false})){
+      countQ = 0
+      rl.setPrompt(`${question[countQ].definition}?\nJawaban :`)
+      rl.prompt()
+      //rl.close()
+    }else{
+      // rl.setPrompt(`${question[countQ].definition}?\nJawaban :`)
+      // rl.prompt()
+      rl.close()
+    }
+
   }else{
     rl.close()
   }
