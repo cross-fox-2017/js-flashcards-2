@@ -1,8 +1,7 @@
 "use strict"
 // write your code here
 let argv = process.argv
-// let source = argv[2]
-// console.log(argv[2])
+
 const fs = require('fs');
 
 class Model {

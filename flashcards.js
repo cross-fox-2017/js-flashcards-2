@@ -1,5 +1,8 @@
 "use strict"
 // write your code here
+let argv = process.argv
+let source = argv[2]
+
 const Controller = require('./controller.js')
-// const View = require('./view.js')
-Controller.run()
+
+Controller.run(source)

@@ -1,17 +1,12 @@
 "use strict"
 // write your code here
 const Model = require('./model.js')
-let argv = process.argv
-let source = argv[2]
-const model = new Model(source)
-let data = model.getData();
 const View = require('./view.js')
 
-
-
 class Controller {
-  static run() {
-    model.getData(source);
+  static run(sourceParam) {
+    const model = new Model(sourceParam)
+    let data = model.getData();
     const readline = require('readline');
     const rl = readline.createInterface({
       input: process.stdin,
