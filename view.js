@@ -35,7 +35,7 @@ export class View{
       rl.prompt();
     }).on('close', () => {
       newData.sort(function(a,b){
-        a.mistakes > b.mistakes
+        return a.mistakes < b.mistakes
       })
       let tersulit = newData[0]
       console.log(`Permainan Selesai\n\nsoal yang paling sulit adalah "${tersulit.definition}"\n(salah ${tersulit.mistakes} x) `);
