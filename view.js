@@ -1,6 +1,6 @@
 "use strict"
 // write your code here
-import {Model} from './model.js' 
+import {Model} from './model.js'
 
 const readline = require('readline');
 const rl = readline.createInterface({
@@ -11,24 +11,34 @@ const rl = readline.createInterface({
 export class View{
 
   static permainan(){
-    console.log(`Selamat datang Dipermaian FlashCard 1\n\n`);
+    console.log(`Selamat datang Dipermaian FlashCard 2\n\n`);
     let counter = 0
+    let newData = Model.data()
     rl.setPrompt(`${Model.data()[counter].definition}?\n`)
     rl.prompt();
     rl.on('line', (jawaban) => {
-      if(jawaban.toLowerCase() == Model.data()[counter].term.toLowerCase()){
+      if(jawaban === 'skip'){
+        newData.push(newData[counter]);
+        newData.shift();
+        console.log(`\n`)
+      }else if(jawaban.toLowerCase() == newData[counter].term.toLowerCase()){
         console.log(`Jawaban Anda BETUL!!! \n`);
         counter++
       }else{
-        console.log(`Yah, masih salah, coba lagi bro \n`);
+        newData[counter].mistakes++
+        console.log(`Yah, masih salah, coba lagi bro (kamu sudah salah : ${newData[counter].mistakes} kali) \n`);
       }
-      if(counter=== Model.data().length){
+      if(counter=== newData.length){
         rl.close()
       }
-      rl.setPrompt(`${Model.data()[counter].definition}? \n`)
+      rl.setPrompt(`${newData[counter].definition}? \n`)
       rl.prompt();
     }).on('close', () => {
-      console.log('Hebat coy!');
+      newData.sort(function(a,b){
+        a.mistakes > b.mistakes
+      })
+      let tersulit = newData[0]
+      console.log(`Permainan Selesai\n\nsoal yang paling sulit adalah "${tersulit.definition}"\n(salah ${tersulit.mistakes} x) `);
       process.exit(0);
     });
   }
