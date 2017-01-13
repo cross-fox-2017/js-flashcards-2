@@ -1,2 +1,9 @@
 "use strict"
-// write your code here
+
+import {View} from './view.js'
+
+export class Controller{
+  static run(){
+    View.permainan();
+  }
+}
