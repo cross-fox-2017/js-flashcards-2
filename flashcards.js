@@ -18,7 +18,8 @@ console.log(data[x].definition)
 rl.on('line', (line) => {
   if (line.trim().toLowerCase() == data[x].term.toLowerCase()) {
       console.log('Jawaban Benar!');
-      x++
+      x++;
+      wrong = 0;
       if (x < data.length) {
         console.log(data[x].definition)
       } else {
