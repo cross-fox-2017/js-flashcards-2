@@ -6,7 +6,7 @@ import fs from "fs"
 
 export default class Model{
   constructor(source){
-    this.source = source;
+    this.source = source || "social.json";
   }
 
   getData(){
